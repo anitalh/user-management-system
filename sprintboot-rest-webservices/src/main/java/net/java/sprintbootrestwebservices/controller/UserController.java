@@ -1,5 +1,6 @@
 package net.java.sprintbootrestwebservices.controller;
 
+import jakarta.validation.Valid;
 import jdk.jshell.Snippet;
 import lombok.AllArgsConstructor;
 import net.java.sprintbootrestwebservices.dto.UserDto;
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user){
         UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
+    public ResponseEntity<UserDto> updateUser(@Valid @PathVariable("id") Long userId,
                                            @RequestBody UserDto user){
         user.setId(userId);
         UserDto updatedUser = userService.updateUser(user);
